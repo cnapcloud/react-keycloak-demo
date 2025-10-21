@@ -1,0 +1,6 @@
+
+/* Tailwind CSS의 기본 스타일을 불러옵니다 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
