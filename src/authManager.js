@@ -23,7 +23,14 @@ const initKeycloak = (onAuthenticatedCallback) => {
       }
       onAuthenticatedCallback();
     })
-    .catch(console.error);
+    .catch((err) => {
+      console.warn('Keycloak init failed:', err);
+      window.history.replaceState({}, '', window.location.pathname);
+      _kc.authenticated = false;
+      _kc.token = null;
+      _kc.tokenParsed = null;
+      onAuthenticatedCallback();
+    });
 };
 
 
