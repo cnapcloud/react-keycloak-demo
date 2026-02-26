@@ -39,7 +39,7 @@ const authService = {
   logout: () => _kc.logout(),
   isTokenExpired: () => _kc.isTokenExpired(),
   updateToken: (successCallback, errorCallback) => {
-    _kc.updateToken(5) // 
+    _kc.updateToken(5) //
       .then((refreshed) => {
         if (refreshed) {
           console.log("Token was refreshed");
@@ -47,7 +47,7 @@ const authService = {
           console.log("Token is still valid, no refresh needed");
         }
         if (typeof successCallback === "function") {
-          successCallback(_kc.token);
+          successCallback({ token: _kc.token, refreshed });
         }
       })
       .catch((error) => {

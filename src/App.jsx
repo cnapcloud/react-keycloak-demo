@@ -7,6 +7,7 @@ export default function App() {
   const [protectedData, setProtectedData] = React.useState(null);
   const [token, setToken] = React.useState(authManager.getToken());
   const [username, setUsername] = React.useState(authManager.getUsername());
+  const [alertMessage, setAlertMessage] = React.useState(null);
 
   const fetchProtectedData = async () => {
     try {
@@ -20,11 +21,19 @@ export default function App() {
   };
 
   const handleUpdateToken = () => {
-    authManager.updateToken(() => {
-      console.log("Token updated");
-      setToken(authManager.getToken());
-      setUsername(authManager.getUsername());
+    authManager.updateToken((result) => {
+      console.log("Token update result:", result);
+      setToken(result.token);
       setIsExpired(false);
+
+      if (result.refreshed) {
+        setAlertMessage("Token has been refreshed");
+      } else {
+        setAlertMessage("Token is still valid.\nPlease try again after 5 seconds or more");
+      }
+    }, (error) => {
+      console.error("Token update error:", error);
+      setAlertMessage(`Token update failed: ${error.message}`);
     });
   };
 
@@ -41,14 +50,42 @@ export default function App() {
   };
 
   const handleCheckExpired = () => {
-    setIsExpired(authManager.isTokenExpired());
+    const expired = authManager.isTokenExpired();
+    setIsExpired(expired);
+    setAlertMessage(`Token is ${expired ? 'expired' : 'valid'}`);
   };
 
   const isLoggedIn = authManager.isLoggedIn();
 
   return (
     <div className="App">
-      <h1 className="text-center font-bold text-2xl mt-6 mb-2">Keycloak Authentication</h1>
+      {alertMessage && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-3 max-w-sm mx-4">
+            <p className="text-center text-gray-800 whitespace-pre-line text-sm">{alertMessage}</p>
+            <button
+              onClick={() => setAlertMessage(null)}
+              className="mt-2 w-full px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className="relative flex justify-center items-center px-6 py-4">
+        <h1 className="font-bold text-2xl">Keycloak Authentication</h1>
+        {isLoggedIn && (
+          <a
+            href="http://localhost:8080/realms/cnap/user-profile?return_uri=http%3A%2F%2Flocalhost%3A5173"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute right-6 px-3 py-1 bg-purple-600 text-white rounded-full text-xs hover:bg-purple-700 whitespace-nowrap"
+          >
+            My Profile
+          </a>
+        )}
+      </div>
       <hr className="my-6" />
 
       {isLoggedIn && (
