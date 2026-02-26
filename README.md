@@ -32,8 +32,13 @@ VITE_KEYCLOAK_CLIENT_ID=react
 
 In the **Keycloak Admin Console**, create a new client named `react` with the following settings:
 
+Capability config:
+- Client authentication: off
+- Authorization: off
+- Authentication Flow: Standard Flow ✔
+
+Access settings:
 - Client ID: react
-- Authentication Flow: Standard Flow ✔︎
 - Home URL: http://localhost:5173
 - Redirect URI: *
 - Web Origins: http://localhost:5173
