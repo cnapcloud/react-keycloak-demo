@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    environment:
+      KEYCLOAK_REALM: cnap
+      KEYCLOAK_AUTH_SERVER_URL: http://localhost:8080
+      KEYCLOAK_CLIENT_ID: react
+      API_BASE_URL: /api
+      API_BACKEND_URL: https://httpbin.org/
+      NGINX_ACCESS_LOG: /dev/stdout

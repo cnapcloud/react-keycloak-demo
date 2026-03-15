@@ -1,7 +1,7 @@
 # Makefile for GitOps Dashboard Frontend
-IMAGE_ORG := harbor.cnapcloud.com/library
-IMAGE_REPOSITORY := ${IMAGE_ORG}/react-keycloak-demo
-IMAGE_TAG := $(shell git rev-parse --short=7 HEAD)
+IMAGE_ORG ?= harbor.cnapcloud.com/library
+IMAGE_REPOSITORY ?= ${IMAGE_ORG}/react-keycloak-demo
+IMAGE_TAG ?= $(shell git rev-parse --short=7 HEAD)
 
 # Gitops variables
 GITOPS_REPO := https://github.com/cnapcloud/gitops.git
