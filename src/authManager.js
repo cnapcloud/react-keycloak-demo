@@ -1,10 +1,10 @@
 import Keycloak from "keycloak-js";
 
-// Load environment variables from .env file 
+const env = window.__ENV__ || {};
 const keycloakConfig = {
-  realm: import.meta.env.VITE_KEYCLOAK_REALM,
-  url: import.meta.env.VITE_KEYCLOAK_AUTH_SERVER_URL,
-  clientId: import.meta.env.VITE_KEYCLOAK_CLIENT_ID
+  realm: env.KEYCLOAK_REALM,
+  url: env.KEYCLOAK_AUTH_SERVER_URL,
+  clientId: env.KEYCLOAK_CLIENT_ID
 };
 
 // Keycloak instance creation
