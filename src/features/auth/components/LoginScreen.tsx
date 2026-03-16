@@ -13,7 +13,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-slate-900 mb-2">Keycloak Demo</h1>
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">React Keycloak Demo</h1>
         <p className="text-slate-500 text-sm mb-8">계속하려면 로그인하세요.</p>
         <Button className="w-full" onClick={onLogin}>
           로그인
